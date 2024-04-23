@@ -32,7 +32,7 @@
    <widget class="QLabel" name="title_label">
     <property name="geometry">
      <rect>
-      <x>350</x>
+      <x>390</x>
       <y>10</y>
       <width>231</width>
       <height>81</height>
@@ -96,7 +96,7 @@ color: rgb(0, 0, 0);</string>
      <string>2D-聚类结果</string>
     </property>
    </widget>
-   <widget class="QLabel" name="promote_label">
+   <widget class="QLabel" name="select_data_label">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -113,7 +113,7 @@ color: rgb(0, 0, 0);</string>
      <string>请选择数据集：</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="select_data_btn">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -126,7 +126,7 @@ color: rgb(0, 0, 0);</string>
      <string>选择</string>
     </property>
    </widget>
-   <widget class="QLabel" name="promote_label_2">
+   <widget class="QLabel" name="data_name_label">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -143,7 +143,7 @@ color: rgb(0, 0, 0);</string>
      <string>…</string>
     </property>
    </widget>
-   <widget class="QLabel" name="promote_label_3">
+   <widget class="QLabel" name="process_data_label">
     <property name="geometry">
      <rect>
       <x>300</x>
