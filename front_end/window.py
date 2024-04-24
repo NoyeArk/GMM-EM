@@ -12,6 +12,7 @@ import sys
 import numpy as np
 import pandas as pd
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPalette, QBrush, QPixmap, QPainter
 from PyQt5.QtWidgets import QFileDialog, QMainWindow
 
@@ -29,17 +30,14 @@ class Ui_MainWindow(QMainWindow):
         self.data = None
         self.model = None
 
+        self.setStyleSheet('#win{background-color:blue;}')  # 设置窗口背景颜色
+
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1000, 600)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 600))
         MainWindow.setMaximumSize(QtCore.QSize(1000, 600))
-        MainWindow.setStyleSheet("")
-
-        painter = QPainter(self)
-        pixmap = QPixmap("bg1.jpg")
-        # 绘制窗口背景，平铺到整个窗口，随着窗口改变而改变
-        painter.drawPixmap(self.rect(), pixmap)
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -150,6 +148,10 @@ class Ui_MainWindow(QMainWindow):
 
         self.set_event()
 
+        self.eps_edit.setText('0.0001')
+        self.iter_num_edit.setText('100')
+        self.cluster_num_edit.setText('5')
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -184,7 +186,7 @@ class Ui_MainWindow(QMainWindow):
             self.data_name_label.setText(path_parts[-1])
 
             print('读取数据集')
-            self.data = pd.read_csv('after_pca_data.csv')
+            self.data = read_data('after_pca_data.csv')
             print('读取数据集成功')
         else:
             print('error')
@@ -195,12 +197,13 @@ class Ui_MainWindow(QMainWindow):
 
     def run_model(self):
         # 得到用户输入的参数
-        eps = self.eps_edit.text()
-        iter_num = self.iter_num_edit.text()
-        cluster_num = self.cluster_num_edit.text()
+        cluster_num = int(self.cluster_num_edit.text())
+        iter_num = int(self.iter_num_edit.text())
+        eps = float(self.eps_edit.text())
 
         # 初始化模型
-        self.model = em.GMM(int(cluster_num), int(iter_num), int(eps))
+        self.model = em.GMM(cluster_num, iter_num, eps)
+
         self.output_area.setText('初始化模型...')
 
         # 训练模型
@@ -209,7 +212,9 @@ class Ui_MainWindow(QMainWindow):
 
         # 预测结果
         y_pred = self.model.pred(self.data)
-        print(y_pred)
+        self.output_area.setText(str(y_pred))
+        print(str(y_pred))
+
 
 def read_data(filename):
     x = []  # 存储读取到的数据
@@ -220,6 +225,7 @@ def read_data(filename):
             # 将每一行数据转换为浮点数列表
             row_data = [float(val) for val in row]
             x.append(row_data)
+
     return np.array(x)
 
 
@@ -228,7 +234,13 @@ if __name__ == '__main__':
 
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow() # 创建窗体对象
-    ui = Ui_MainWindow() # 创建PyQt设计的窗体对象
-    ui.setupUi(MainWindow) # 调用PyQt窗体的方法对窗体对象进行初始化设置
-    MainWindow.show() # 显示窗体
-    sys.exit(app.exec_()) # 程序关闭时退出进程
+
+    ui = Ui_MainWindow()  # 创建PyQt设计的窗体对象
+    ui.setupUi(MainWindow)  # 调用PyQt窗体的方法对窗体对象进行初始化设置
+
+    palette = MainWindow.palette()
+    palette.setBrush(QPalette.Background, QBrush(QPixmap("bg1.jpg")))
+    MainWindow.setPalette(palette) # 设置窗口背景颜色
+
+    MainWindow.show()  # 显示窗体
+    sys.exit(app.exec_())  # 程序关闭时退出进程

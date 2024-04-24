@@ -1,26 +1,19 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtGui import QIcon, QPixmap, QPainter
+import sys
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
-class Ui_Form(QtWidgets.QWidget):
+class Demo(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Form")
-        self.resize(468, 352)
-        self.setWindowIcon(QIcon('bg2.jpg'))
-
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        pixmap = QPixmap("bg1.jpg")
-        # 绘制窗口背景，平铺到整个窗口，随着窗口改变而改变
-        painter.drawPixmap(self.rect(), pixmap)
-
-
+        self.resize(500,500)
+        self.setWindowTitle('设置窗口背景色')
+        self.setObjectName('win')#设置窗口名，相当于CSS中的ID
+        self.setStyleSheet('#win{background-color:blue;}')#设置窗口背景颜色
 
 if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    ui = Ui_Form()
-    ui.show()
+    app = QApplication(sys.argv)
+    form = Demo()
+    form.show()
     sys.exit(app.exec_())
-

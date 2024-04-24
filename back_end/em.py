@@ -22,28 +22,35 @@ def read_data(filename):
 
 
 class GMM:
-    def __init__(self, n_components, iter=1000, eps=1e-10):
-        print('GMM1111')
-
+    def __init__(self, n_components=5, iter=1000, eps=1e-10):
         self.n_components, self.iter, self.eps = n_components, iter, eps
         self.weights = np.full(self.n_components, 1 / self.n_components)
         self.last_weights = self.weights
         self.means, self.cov = None, None
 
     def fit(self, x):
-        self.means = np.array(x[random.sample(range(x.shape[0]), self.n_components)])
-
+        print(x)
+        try:
+            self.means = np.array(x[random.sample(range(x.shape[0]), self.n_components)])
+        except Exception as e:
+            print(e)
+        print('fit1')
         self.cov = np.stack([np.eye(x.shape[1]) for _ in range(self.n_components)])
+        print('fit2')
         last_loss = -float('inf')
 
         for _ in range(self.iter):
             pi = self.e_step(x)  # E步
+            print('E')
             self.m_step(x, pi)  # M步
+            print('M')
             # 判断分概率分布是否变化不大
             cur_loss = np.sum(np.log(np.dot(self.weights, self.last_weights.T)), axis=0)
             if abs(cur_loss - last_loss) < self.eps:
                 break
             last_loss = cur_loss
+
+            print(abs(cur_loss - last_loss))
 
     def pred(self, x):
         pi = self.e_step(x)
@@ -81,9 +88,7 @@ class GMM:
         self.cov += 1e-6 * np.eye(x.shape[1])
 
 
-
-
 if __name__ == "__main__":
     gmm = GMM(6)
 
-    gmm.x = read_data()
+    # gmm.x = read_data()

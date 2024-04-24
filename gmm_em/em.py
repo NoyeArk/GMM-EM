@@ -79,6 +79,7 @@ def read_data(filename):
 
 if __name__ == "__main__":
     data = read_data('after_pca_data.csv')
+    print(data)
 
     gmm = GMM(6)
     gmm.fit(data)
