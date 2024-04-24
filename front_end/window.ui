@@ -66,7 +66,7 @@ color: rgb(0, 0, 0);</string>
      <string>指令执行运行结果：</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
+   <widget class="QTextBrowser" name="output_area">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -79,7 +79,7 @@ color: rgb(0, 0, 0);</string>
      <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
-   <widget class="QLabel" name="output_gragh_label">
+   <widget class="QLabel" name="output_gragh2d_label">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -89,7 +89,7 @@ color: rgb(0, 0, 0);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 20pt &quot;AcadEref&quot;;
+     <string notr="true">font: 20pt &quot;3ds&quot;;
 color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
@@ -160,7 +160,7 @@ color: rgb(0, 0, 0);</string>
      <string>数据处理：</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="find_abnormal_btn">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -173,7 +173,7 @@ color: rgb(0, 0, 0);</string>
      <string>查看异常值</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="find_repeat_label">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -186,7 +186,7 @@ color: rgb(0, 0, 0);</string>
      <string>查看重复值</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="find_statistic_label">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -199,7 +199,7 @@ color: rgb(0, 0, 0);</string>
      <string>查看数据统计</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="save_data_btn">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -209,10 +209,10 @@ color: rgb(0, 0, 0);</string>
      </rect>
     </property>
     <property name="text">
-     <string>保存</string>
+     <string>保存数据</string>
     </property>
    </widget>
-   <widget class="QLabel" name="promote_label_4">
+   <widget class="QLabel" name="cluster_analysis_label">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -229,7 +229,7 @@ color: rgb(0, 0, 0);</string>
      <string>聚类分析：</string>
     </property>
    </widget>
-   <widget class="QLabel" name="promote_label_5">
+   <widget class="QLabel" name="cluster_num_label">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -246,7 +246,7 @@ color: rgb(0, 0, 0);</string>
      <string>输入聚类数量／个：</string>
     </property>
    </widget>
-   <widget class="QLabel" name="promote_label_6">
+   <widget class="QLabel" name="iter_num_label">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -293,7 +293,7 @@ color: rgb(0, 0, 0);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="promote_label_7">
+   <widget class="QLabel" name="eps_num_label">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -310,7 +310,7 @@ color: rgb(0, 0, 0);</string>
      <string>输入相差阈值：</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="run_btn">
     <property name="geometry">
      <rect>
       <x>840</x>
@@ -323,7 +323,7 @@ color: rgb(0, 0, 0);</string>
      <string>开始分析</string>
     </property>
    </widget>
-   <widget class="QLabel" name="output_gragh_label_2">
+   <widget class="QLabel" name="output_gragh3d_label">
     <property name="geometry">
      <rect>
       <x>770</x>
@@ -333,14 +333,14 @@ color: rgb(0, 0, 0);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 20pt &quot;AcadEref&quot;;
+     <string notr="true">font: 20pt &quot;3ds&quot;;
 color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>3D-聚类结果</string>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QGraphicsView" name="graphics_view2d">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -350,7 +350,7 @@ color: rgb(0, 0, 0);</string>
      </rect>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView_2">
+   <widget class="QGraphicsView" name="graphics_view3d">
     <property name="geometry">
      <rect>
       <x>770</x>
