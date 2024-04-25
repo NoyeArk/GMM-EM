@@ -260,11 +260,10 @@ class Ui_MainWindow(QMainWindow):
         self.output_area.append('> 初始化模型...')
 
         # 训练模型
-        self.model.fit(self.handled_data)
+        y_pred = self.model.fit(self.handled_data)
         self.output_area.append('> 模型训练结束，正在预测...')
 
         # 预测结果
-        y_pred = self.model.pred(self.handled_data)
         self.output_area.append(str(y_pred))
         print(str(y_pred))
 
@@ -345,7 +344,7 @@ if __name__ == '__main__':
     palette = MainWindow.palette()
     palette.setBrush(QPalette.Background, QBrush(QPixmap("bg3.jpg")))
     MainWindow.setPalette(palette)  # 设置窗口背景颜色
-    MainWindow.setWindowIcon(QIcon("bg2.jpg"))
+    MainWindow.setWindowIcon(QIcon("logo.png"))
 
     MainWindow.show()  # 显示窗体
     sys.exit(app.exec_())  # 程序关闭时退出进程

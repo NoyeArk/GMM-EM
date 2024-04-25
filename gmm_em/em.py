@@ -54,9 +54,9 @@ class GMM:
         N = pi.sum(axis=0)
         self.means = (pi.T @ x) / np.expand_dims(N, axis=1)
         self.cov = np.zeros_like(self.cov)
-        for k in range(self.n_components):
+         for k in range(self.n_components):
             x_pro = x - self.means[k]
-            self.cov[k] = (np.expand_dims(pi[:, k], axis=0) * x_pro.T @ x_pro) / pi[:, k].sum()
+              self.cov[k] = (np.expand_dims(pi[:, k], axis=0) * x_pro.T @ x_pro) / pi[:, k].sum()
 
         # 更新权重
         self.weights = pi.mean(axis=0)

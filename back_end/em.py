@@ -22,47 +22,34 @@ def read_data(filename):
 
 
 class GMM:
-    def __init__(self, n_components=5, iter=1000, eps=1e-10):
-        self.n_components, self.iter, self.eps = n_components, iter, eps
-        self.weights = np.full(self.n_components, 1 / self.n_components)
+    def __init__(self, cluster_num=5, iter_num=1000, eps=1e-10):
+        self.cluster_num, self.iter_num, self.eps = cluster_num, iter_num, eps
+        self.weights = np.full(self.cluster_num, 1 / self.cluster_num)
         self.last_weights = self.weights
         self.means, self.cov = None, None
 
     def fit(self, x):
-        print(x)
-        try:
-            self.means = np.array(x[random.sample(range(x.shape[0]), self.n_components)])
-        except Exception as e:
-            print(e)
-        print('fit1')
-        self.cov = np.stack([np.eye(x.shape[1]) for _ in range(self.n_components)])
-        print('fit2')
+        self.means = np.array(x[random.sample(range(x.shape[0]), self.cluster_num)])
+        self.cov = np.stack([np.eye(x.shape[1]) for _ in range(self.cluster_num)])
         last_loss = -float('inf')
 
-        for _ in range(self.iter):
+        for _ in range(self.iter_num):
             pi = self.e_step(x)  # E步
-            print('E')
             self.m_step(x, pi)  # M步
-            print('M')
-            # 判断分概率分布是否变化不大
             cur_loss = np.sum(np.log(np.dot(self.weights, self.last_weights.T)), axis=0)
             if abs(cur_loss - last_loss) < self.eps:
                 break
             last_loss = cur_loss
 
-            print(abs(cur_loss - last_loss))
-
-    def pred(self, x):
         pi = self.e_step(x)
         return np.argmax(pi, axis=1)
 
     def e_step(self, x):  # E步
         n_samples = x.shape[0]
-        n_components = self.means.shape[0]
 
         # 计算每个样本属于各个高斯分量的概率
-        probs = np.zeros((n_samples, n_components))
-        for k in range(n_components):
+        probs = np.zeros((n_samples, self.cluster_num))
+        for k in range(self.cluster_num):
             dist = multivariate_normal(mean=self.means[k], cov=self.cov[k])
             probs[:, k] = self.weights[k] * dist.pdf(x)
 
@@ -77,7 +64,7 @@ class GMM:
         N = pi.sum(axis=0)
         self.means = (pi.T @ x) / np.expand_dims(N, axis=1)
         self.cov = np.zeros_like(self.cov)
-        for k in range(self.n_components):
+        for k in range(self.cluster_num):
             x_pro = x - self.means[k]
             self.cov[k] = (np.expand_dims(pi[:, k], axis=0) * x_pro.T @ x_pro) / pi[:, k].sum()
 
