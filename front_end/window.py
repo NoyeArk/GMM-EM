@@ -8,7 +8,7 @@ from datetime import datetime
 from matplotlib import pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPalette, QBrush, QPixmap, QPainter, QImage, QIcon
-from PyQt5.QtWidgets import QFileDialog, QMainWindow, QGraphicsPixmapItem, QGraphicsScene
+from PyQt5.QtWidgets import QFileDialog, QMainWindow, QGraphicsPixmapItem, QGraphicsScene, QMessageBox
 
 from back_end import em
 
@@ -78,7 +78,7 @@ class Ui_MainWindow(QMainWindow):
         self.data_name_label.setObjectName("data_name_label")
 
         self.process_data_label = QtWidgets.QLabel(self.centralwidget)
-        self.process_data_label.setGeometry(QtCore.QRect(300, 80, 191, 81))
+        self.process_data_label.setGeometry(QtCore.QRect(300, 80, 200, 81))
         self.process_data_label.setStyleSheet("font: 20pt \"AcadEref\";\n" "color: rgb(0, 0, 0);")
         self.process_data_label.setObjectName("process_data_label")
 
@@ -173,7 +173,7 @@ class Ui_MainWindow(QMainWindow):
         self.select_data_label.setText(_translate("MainWindow", "请选择数据集："))
         self.select_data_btn.setText(_translate("MainWindow", "选择"))
         self.data_name_label.setText(_translate("MainWindow", "…"))
-        self.process_data_label.setText(_translate("MainWindow", "数据处理："))
+        self.process_data_label.setText(_translate("MainWindow", "查看数据集信息："))
         self.find_abnormal_btn.setText(_translate("MainWindow", "查看异常值"))
         self.find_deletion_btn.setText(_translate("MainWindow", "查看缺失值"))
         self.find_statistic_btn.setText(_translate("MainWindow", "数据统计"))
@@ -301,7 +301,7 @@ class Ui_MainWindow(QMainWindow):
         pix = QPixmap.fromImage(frame)
         item = QGraphicsPixmapItem(pix)  # 创建像素图元
         scene = QGraphicsScene()  # 创建场景
-        scene.addItem(self.item)
+        scene.addItem(item)
 
         if graph_name == '2d_outcome.png':
             self.graphics_view2d.setScene(scene)
@@ -313,10 +313,11 @@ class Ui_MainWindow(QMainWindow):
             self.graphics_view3d.show()
 
     def save_data(self):
+        file_name = QFileDialog.getSaveFileName(self, '保存文件', 'data')
         self.output_area.append('> 保存数据中...')
-        file_name = 'data-' + str(datetime.now().date()) + '.csv'
-        self.row_data.to_csv(file_name, index=False)
-        self.output_area.append('> 保存成功！路径为默认路径')
+        self.row_data.to_csv(file_name[0] + '.csv', index=False)
+        self.output_area.append('> 保存成功！')
+        self.output_area.append('> 路径为：' + file_name[0] + '.csv')
 
 
 def read_data(filename):
