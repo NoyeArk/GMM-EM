@@ -76,6 +76,11 @@ class GMM:
 
 
 if __name__ == "__main__":
-    gmm = GMM(6)
+    data = read_data('../dataset/after_pca_data.csv')
+    print(data)
 
-    # gmm.x = read_data()
+    gmm = GMM(6)
+    gmm.fit(data)
+    y_pred = gmm.pred(data)
+
+    print(y_pred)

@@ -210,7 +210,6 @@ class Ui_MainWindow(QMainWindow):
             }
         """)
 
-
     def select_dataset(self):
         file_path, _ = QFileDialog.getOpenFileName(None, "选择文件", "", "All Files (*)")
         if file_path:
@@ -218,8 +217,8 @@ class Ui_MainWindow(QMainWindow):
             self.data_name_label.setText(path_parts[-1])
 
             print('读取数据集')
-            self.row_data = pd.read_csv(path_parts[-1])
-            self.handled_data = read_data('after_pca_data.csv')
+            self.row_data = pd.read_csv('../dataset/' + path_parts[-1])
+            self.handled_data = read_data('../dataset/after_pca_data.csv')
             print('读取数据集成功')
         else:
             print('error')
@@ -343,9 +342,9 @@ if __name__ == '__main__':
     ui.setupUi(MainWindow)  # 调用PyQt窗体的方法对窗体对象进行初始化设置
 
     palette = MainWindow.palette()
-    palette.setBrush(QPalette.Background, QBrush(QPixmap("bg3.jpg")))
+    palette.setBrush(QPalette.Background, QBrush(QPixmap("../img/background.jpg")))
     MainWindow.setPalette(palette)  # 设置窗口背景颜色
-    MainWindow.setWindowIcon(QIcon("logo.png"))
+    MainWindow.setWindowIcon(QIcon("../img/logo.png"))
 
     MainWindow.show()  # 显示窗体
     sys.exit(app.exec_())  # 程序关闭时退出进程
